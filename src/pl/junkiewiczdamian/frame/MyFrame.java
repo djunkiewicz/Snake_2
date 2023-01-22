@@ -35,4 +35,13 @@ public class MyFrame extends JFrame {
     public void updateSnakeMap(Snake snake){
         snakeMap.update(snake);
     }
+    public int getSnakeMapSize(){
+        return snakeMap.getMapSize();
+    }
+    public SnakeMap getSnakeMap() {
+        return snakeMap;
+    }
+    public MenuPanel getMenuPanel() {
+        return menuPanel;
+    }
 }

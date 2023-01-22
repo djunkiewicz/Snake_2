@@ -5,14 +5,12 @@ import java.awt.event.KeyListener;
 import java.util.List;
 
 public class Snake implements KeyListener {
-    private final SnakePart head;
-    private final SnakeBody body;
+    private SnakePart head;
+    private SnakeBody body;
     private String currentDirection;
 
     public Snake() {
-        head = new SnakePart(10,11);
-        body = new SnakeBody(head);
-        currentDirection = "right";
+        init();
     }
 
     public void move(){
@@ -46,10 +44,20 @@ public class Snake implements KeyListener {
     public void setDirection(String newDirection){
         currentDirection = newDirection;
     }
+    public void init(){
+        head = new SnakePart(10,11);
+        body = new SnakeBody(head);
+        currentDirection = "right";
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
-
+        switch (e.getKeyChar()) {
+            case 'w' -> setDirection("up");
+            case 's' -> setDirection("down");
+            case 'a' -> setDirection("left");
+            case 'd' -> setDirection("right");
+        }
     }
 
     @Override

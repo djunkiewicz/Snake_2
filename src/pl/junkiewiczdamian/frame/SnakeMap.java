@@ -9,10 +9,10 @@ import java.awt.*;
 public class SnakeMap extends JLayeredPane {
     private final SnakeMapField[][] fields;
     private final JLabel auxLabel;
-    private final int size;
+    private final int mapSize;
 
     public SnakeMap(int size) {
-        this.size = size;
+        this.mapSize = size;
 
         this.setPreferredSize(new Dimension(900,900));
         this.setBackground(Color.BLUE);
@@ -65,10 +65,9 @@ public class SnakeMap extends JLayeredPane {
     }
 
     public void repaint() {
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
+        for (int i = 0; i < mapSize; i++) {
+            for (int j = 0; j < mapSize; j++) {
                 if(fields!=null) {
-                    //System.out.println(fields[i][j].getFieldType());
                     switch (fields[i][j].getFieldType()) {
                         case BORDER -> {
                             fields[i][j].setBackground(Color.darkGray);
@@ -92,25 +91,29 @@ public class SnakeMap extends JLayeredPane {
     }
     public void update(Snake snake){
         int x,y;
-        for (int i = 0; i<size; i++){
-            for (int j = 0; j<size; j++){
+        for (int i = 0; i<mapSize; i++){
+            for (int j = 0; j<mapSize; j++){
                 x = j;
                 y = i;
-                if (i == 0 || i == size-1 || j == 0 || j == size-1){
-                    fields[i][j].setFieldType(FieldType.BORDER);
+                if (y == 0 || y == mapSize-1 || x == 0 || x == mapSize-1){
+                    fields[y][x].setFieldType(FieldType.BORDER);
                 } else {
-                    fields[i][j].setFieldType(FieldType.EMPTY);
+                    fields[y][x].setFieldType(FieldType.EMPTY);
                 }
-                for (SnakePart temp: snake.getBodyParts()) {
-                    x = temp.getX();
-                    y = temp.getY();
-                    fields[y][x].setFieldType(FieldType.SNAKE_BODY);
-                }
-                x = snake.getHead().getX();
-                y = snake.getHead().getY();
-                fields[y][x].setFieldType(FieldType.SNAKE_HEAD);
-
             }
         }
+        for (SnakePart temp: snake.getBodyParts()) {
+            x = temp.getX();
+            y = temp.getY();
+            fields[y][x].setFieldType(FieldType.SNAKE_BODY);
+        }
+        x = snake.getHead().getX();
+        y = snake.getHead().getY();
+        fields[y][x].setFieldType(FieldType.SNAKE_HEAD);
     }
+
+    public int getMapSize() {
+        return mapSize;
+    }
+
 }

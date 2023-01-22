@@ -5,9 +5,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MenuPanel extends JPanel implements ActionListener {
+public class MenuPanel extends JPanel {
 
     private final JTextField scorePoints;
+    private final JButton startButton;
+    private final JButton pauseButton;
+    private final JButton restartButton;
 
     public MenuPanel() {
         this.setPreferredSize(new Dimension(300, 900));
@@ -16,30 +19,30 @@ public class MenuPanel extends JPanel implements ActionListener {
         GridBagConstraints c = new GridBagConstraints();
         this.setLayout(l);
 
-        JButton startButton = new JButton("START");
+        startButton = new JButton("START");
         startButton.setPreferredSize(new Dimension(300, 150));
         startButton.setMinimumSize(new Dimension(300, 150));
         startButton.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 36));
-        startButton.addActionListener(this);
+        //startButton.addActionListener(this);
 
-        JButton pauseButton = new JButton("PAUSE");
+        pauseButton = new JButton("PAUSE");
         pauseButton.setPreferredSize(new Dimension(300, 150));
         pauseButton.setMinimumSize(new Dimension(300, 150));
         pauseButton.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 36));
-        pauseButton.addActionListener(this);
+        //pauseButton.addActionListener(this);
 
-        JButton restartButton = new JButton("RESTART");
+        restartButton = new JButton("RESTART");
         restartButton.setPreferredSize(new Dimension(300, 150));
         restartButton.setMinimumSize(new Dimension(300, 150));
         restartButton.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 36));
-        restartButton.addActionListener(this);
+        //restartButton.addActionListener(this);
 
         JLabel gamePicture = new JLabel();
         gamePicture.setPreferredSize(new Dimension(300, 350));
         gamePicture.setMinimumSize(new Dimension(300, 350));
         gamePicture.setBackground(new Color(232, 255, 236));
         gamePicture.setOpaque(true);
-        ImageIcon icon = new ImageIcon("gamePicture.png");
+        ImageIcon icon = new ImageIcon("icons\\gamePicture.png");
         gamePicture.setIcon(icon);
         gamePicture.setHorizontalAlignment(SwingConstants.CENTER);
         gamePicture.setVerticalAlignment(SwingConstants.CENTER);
@@ -92,15 +95,21 @@ public class MenuPanel extends JPanel implements ActionListener {
         this.add(restartButton, c);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-    }
     public void setPoints(int points){
         scorePoints.setText(String.valueOf(points));
     }
 
     public int getPoints(){
         return Integer.parseInt(scorePoints.getText());
+    }
+
+    public JButton getStartButton() {
+        return startButton;
+    }
+    public JButton getPauseButton() {
+        return pauseButton;
+    }
+    public JButton getRestartButton() {
+        return restartButton;
     }
 }
