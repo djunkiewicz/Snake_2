@@ -1,5 +1,6 @@
 package pl.junkiewiczdamian.frame;
 
+import pl.junkiewiczdamian.Pizza;
 import pl.junkiewiczdamian.snake.Snake;
 import pl.junkiewiczdamian.snake.SnakePart;
 
@@ -20,18 +21,18 @@ public class SnakeMap extends JLayeredPane {
 
         JPanel map = new JPanel();
         map.setBounds(0,0,900,900);
-        map.setLayout(new GridLayout(size,size));
+        map.setLayout(new GridLayout(mapSize,mapSize));
         this.add(map, Integer.valueOf(0));
 
         JPanel secondaryScreen = new JPanel();
         secondaryScreen.setBounds(0,0,900,900);
-        secondaryScreen.setLayout(new GridLayout(size,size));
+        secondaryScreen.setLayout(new GridLayout(mapSize,mapSize));
         this.add(secondaryScreen, Integer.valueOf(1));
 
-        fields = new SnakeMapField[size][size];
-        for (int i = 0; i<size; i++){
-            for (int j = 0; j<size; j++){
-                if (i == 0 || i == size-1 || j == 0 || j == size-1){
+        fields = new SnakeMapField[mapSize][mapSize];
+        for (int i = 0; i<mapSize; i++){
+            for (int j = 0; j<mapSize; j++){
+                if (i == 0 || i == mapSize-1 || j == 0 || j == mapSize-1){
                     fields[i][j] = new SnakeMapField(FieldType.BORDER);
                 } else {
                     fields[i][j] = new SnakeMapField(FieldType.EMPTY);
@@ -50,6 +51,18 @@ public class SnakeMap extends JLayeredPane {
         secondaryScreen.setLayout(new BorderLayout());
         secondaryScreen.setOpaque(false);
         secondaryScreen.add(auxLabel);
+    }
+
+    public void clean(){
+        for (int i = 0; i<mapSize; i++){
+            for (int j = 0; j<mapSize; j++){
+                if (i == 0 || i == mapSize-1 || j == 0 || j == mapSize-1){
+                    fields[i][j].setFieldType(FieldType.BORDER);
+                } else {
+                    fields[i][j].setFieldType(FieldType.EMPTY);
+                }
+            }
+        }
     }
 
     public void setFieldType(int x, int y, FieldType type){
@@ -81,7 +94,7 @@ public class SnakeMap extends JLayeredPane {
                         case SNAKE_BODY -> {
                             fields[i][j].setBackground(Color.yellow);
                         }
-                        case APPLE -> {
+                        case PIZZA -> {
                             fields[i][j].setBackground(Color.red);
                         }
                     }
@@ -89,19 +102,15 @@ public class SnakeMap extends JLayeredPane {
             }
         }
     }
+    public void update(Pizza pizza){
+        int x,y;
+        x = pizza.getX();
+        y = pizza.getY();
+        fields[y][x].setFieldType(FieldType.PIZZA);
+    }
+
     public void update(Snake snake){
         int x,y;
-        for (int i = 0; i<mapSize; i++){
-            for (int j = 0; j<mapSize; j++){
-                x = j;
-                y = i;
-                if (y == 0 || y == mapSize-1 || x == 0 || x == mapSize-1){
-                    fields[y][x].setFieldType(FieldType.BORDER);
-                } else {
-                    fields[y][x].setFieldType(FieldType.EMPTY);
-                }
-            }
-        }
         for (SnakePart temp: snake.getBodyParts()) {
             x = temp.getX();
             y = temp.getY();
@@ -110,6 +119,22 @@ public class SnakeMap extends JLayeredPane {
         x = snake.getHead().getX();
         y = snake.getHead().getY();
         fields[y][x].setFieldType(FieldType.SNAKE_HEAD);
+    }
+
+    public void update(Snake snake, Pizza pizza){
+        int x,y;
+        for (SnakePart temp: snake.getBodyParts()) {
+            x = temp.getX();
+            y = temp.getY();
+            fields[y][x].setFieldType(FieldType.SNAKE_BODY);
+        }
+        x = snake.getHead().getX();
+        y = snake.getHead().getY();
+        fields[y][x].setFieldType(FieldType.SNAKE_HEAD);
+
+        x = pizza.getX();
+        y = pizza.getY();
+        fields[y][x].setFieldType(FieldType.PIZZA);
     }
 
     public int getMapSize() {

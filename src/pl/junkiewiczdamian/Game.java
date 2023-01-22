@@ -1,7 +1,9 @@
 package pl.junkiewiczdamian;
 
+import pl.junkiewiczdamian.frame.FieldType;
 import pl.junkiewiczdamian.frame.MyFrame;
 import pl.junkiewiczdamian.snake.Snake;
+import pl.junkiewiczdamian.snake.SnakePart;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,11 +12,17 @@ public class Game implements Runnable, ActionListener {
     private Thread gameThread;
     private final MyFrame myFrame;
     private final Snake snake;
+    private final Pizza pizza;
     private boolean runningGameCondition;
     private boolean shouldStartCounting;
+    int speed;
+    int points;
 
     public Game() {
         snake = new Snake();
+        pizza = new Pizza();
+        speed = 200;
+        points = 0;
         shouldStartCounting = true;
         myFrame = new MyFrame("Snake 2.0");
         myFrame.addKeyListener(snake);
@@ -32,6 +40,7 @@ public class Game implements Runnable, ActionListener {
     @Override
     public void run() {
         myFrame.updateSnakeMap(snake);
+        pizza.generateNewPosition(myFrame.getSnakeMap());
         repaint();
         while (gameThread != null) {
             while (runningGameCondition) {
@@ -51,7 +60,7 @@ public class Game implements Runnable, ActionListener {
                 }
                 //////////////// END
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(speed);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
@@ -65,18 +74,58 @@ public class Game implements Runnable, ActionListener {
     }
 
     public void update() {
-        snake.move();
-        myFrame.updateSnakeMap(snake);
+        snake.move(myFrame.getSnakeMap());
+        snake.updateForbiddenMoves();
+        checkPizza();
+    }
+
+    public void checkPizza(){
+        if (pizza.getX() == snake.getHead().getX() && pizza.getY() == snake.getHead().getY()){
+            snake.expandBody();
+            myFrame.getSnakeMap().update(snake);
+            myFrame.repaintSnakeMap();
+            pizza.generateNewPosition(myFrame.getSnakeMap());
+            updatePoints();
+            increaseSpeed();
+        }
+    }
+    private void updatePoints(){
+        points+=10;
+        myFrame.getMenuPanel().setPoints(points);
+    }
+
+    private void increaseSpeed(){
+        if (points<=100){
+            speed -= 6;
+        } else if (points <= 150) {
+            speed -= 4;
+        } else if (points <= 350) speed = 110;
+        else if (points <= 450) speed = 100;
+        else if (points <= 550) speed = 90;
+        else if (points <= 750) speed = 85;
+        else if (points <= 850) speed = 75;
+        else if (points <= 950) speed = 70;
+        else speed = 65;
     }
 
     public void repaint() {
         myFrame.repaintSnakeMap();
     }
     public boolean checkCollision(){
+        boolean collision = false;
         int x = snake.getHead().getX();
         int y = snake.getHead().getY();
         int size = myFrame.getSnakeMapSize();
-        return x == 0 || x == size - 1 || y == 0 || y == size - 1;
+        for (SnakePart temp: snake.getBodyParts()) {
+            if (temp.getX() == x && temp.getY() == y) {
+                collision = true;
+                break;
+            }
+        }
+        if (x == 0 || x == size - 1 || y == 0 || y == size - 1){
+            collision = true;
+        }
+        return collision;
     }
 
     public void startSequence(){
@@ -109,15 +158,22 @@ public class Game implements Runnable, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == myFrame.getMenuPanel().getStartButton()){
-            runningGameCondition = true;
+            if (!checkCollision()){
+                runningGameCondition = true;
+            }
         }
         if (e.getSource() == myFrame.getMenuPanel().getPauseButton()){
             runningGameCondition = false;
             shouldStartCounting = true;
         }
         if (e.getSource() == myFrame.getMenuPanel().getRestartButton()){
+            myFrame.getSnakeMap().clean();
+            points = 0;
+            speed = 200;
+            myFrame.getMenuPanel().setPoints(points);
             snake.init();
             myFrame.updateSnakeMap(snake);
+            pizza.generateNewPosition(myFrame.getSnakeMap());
             repaint();
             myFrame.getSnakeMap().setPopUpText(null);
             shouldStartCounting = true;
