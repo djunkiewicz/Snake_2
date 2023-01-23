@@ -42,6 +42,7 @@ public class Game implements Runnable, ActionListener {
         myFrame.updateSnakeMap(snake);
         pizza.generateNewPosition(myFrame.getSnakeMap());
         repaint();
+
         while (gameThread != null) {
             while (runningGameCondition) {
                 if (shouldStartCounting){
@@ -173,6 +174,7 @@ public class Game implements Runnable, ActionListener {
             myFrame.getMenuPanel().setPoints(points);
             snake.init();
             myFrame.updateSnakeMap(snake);
+            myFrame.getSnakeMap().updateSnakeIcon(snake.getCurrentDirection());
             pizza.generateNewPosition(myFrame.getSnakeMap());
             repaint();
             myFrame.getSnakeMap().setPopUpText(null);

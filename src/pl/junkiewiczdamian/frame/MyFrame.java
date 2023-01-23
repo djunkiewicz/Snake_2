@@ -12,7 +12,7 @@ public class MyFrame extends JFrame {
 
     public MyFrame(String title) {
         super(title);
-        snakeMap = new SnakeMap(20);
+        snakeMap = new SnakeMap(18);
         menuPanel = new MenuPanel();
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

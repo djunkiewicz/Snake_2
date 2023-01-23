@@ -11,8 +11,22 @@ public class SnakeMap extends JLayeredPane {
     private final SnakeMapField[][] fields;
     private final JLabel auxLabel;
     private final int mapSize;
+    private final ImageIcon snakeHeadIconR, snakeHeadIconL,snakeHeadIconU,snakeHeadIconD;
+    private ImageIcon currentSnakeHeadIcon;
+    private final ImageIcon pizzaIcon;
+    private final ImageIcon snakeBodyIcon;
+    private final Color backgroundColor;
 
     public SnakeMap(int size) {
+        snakeHeadIconR = new ImageIcon("icons\\snake_head_right.png");
+        snakeHeadIconL = new ImageIcon("icons\\snake_head_left.png");
+        snakeHeadIconU = new ImageIcon("icons\\snake_head_up.png");
+        snakeHeadIconD = new ImageIcon("icons\\snake_head_down.png");
+        currentSnakeHeadIcon = snakeHeadIconR;
+        snakeBodyIcon = new ImageIcon("icons\\snake_body.png");
+        pizzaIcon = new ImageIcon("icons\\pizza.png");
+        backgroundColor = new Color(232, 255, 236);
+
         this.mapSize = size;
 
         this.setPreferredSize(new Dimension(900,900));
@@ -21,7 +35,7 @@ public class SnakeMap extends JLayeredPane {
 
         JPanel map = new JPanel();
         map.setBounds(0,0,900,900);
-        map.setLayout(new GridLayout(mapSize,mapSize));
+        map.setLayout(new GridLayout(mapSize,mapSize,0,0));
         this.add(map, Integer.valueOf(0));
 
         JPanel secondaryScreen = new JPanel();
@@ -37,7 +51,7 @@ public class SnakeMap extends JLayeredPane {
                 } else {
                     fields[i][j] = new SnakeMapField(FieldType.EMPTY);
                 }
-                fields[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                fields[i][j].setBorder(BorderFactory.createLineBorder(Color.gray));
                 fields[i][j].setOpaque(true);
                 map.add(fields[i][j]);
             }
@@ -84,29 +98,46 @@ public class SnakeMap extends JLayeredPane {
                     switch (fields[i][j].getFieldType()) {
                         case BORDER -> {
                             fields[i][j].setBackground(Color.darkGray);
+                            fields[i][j].setIcon(null);
                         }
                         case EMPTY -> {
-                            fields[i][j].setBackground(Color.gray);
+                            fields[i][j].setBackground(backgroundColor);
+                            fields[i][j].setIcon(null);
                         }
                         case SNAKE_HEAD -> {
-                            fields[i][j].setBackground(Color.blue);
+                            fields[i][j].setBackground(backgroundColor);
+                            fields[i][j].setIcon(currentSnakeHeadIcon);
+                            //fields[i][j].setHorizontalAlignment(SwingConstants.CENTER);
+                            //fields[i][j].setVerticalAlignment(SwingConstants.CENTER);
                         }
                         case SNAKE_BODY -> {
-                            fields[i][j].setBackground(Color.yellow);
+                            fields[i][j].setBackground(backgroundColor);
+                            fields[i][j].setIcon(snakeBodyIcon);
                         }
                         case PIZZA -> {
-                            fields[i][j].setBackground(Color.red);
+                            fields[i][j].setBackground(backgroundColor);
+                            fields[i][j].setIcon(pizzaIcon);
                         }
                     }
                 }
             }
         }
+
     }
     public void update(Pizza pizza){
         int x,y;
         x = pizza.getX();
         y = pizza.getY();
         fields[y][x].setFieldType(FieldType.PIZZA);
+    }
+
+    public void updateSnakeIcon(String currentSnakeDirection){
+        switch (currentSnakeDirection){
+            case "right" -> currentSnakeHeadIcon = snakeHeadIconR;
+            case "left" -> currentSnakeHeadIcon = snakeHeadIconL;
+            case "up" -> currentSnakeHeadIcon = snakeHeadIconU;
+            case "down" -> currentSnakeHeadIcon = snakeHeadIconD;
+        }
     }
 
     public void update(Snake snake){

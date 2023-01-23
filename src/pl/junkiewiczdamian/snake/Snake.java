@@ -42,6 +42,7 @@ public class Snake implements KeyListener {
                 head.setPosition(x,y+1);
             }
         }
+        snakeMap.updateSnakeIcon(currentDirection);
 
         snakeMap.setFieldType(head.getX(),head.getY(), FieldType.SNAKE_HEAD);
         x = getBodyParts().get(0).getX();
@@ -91,6 +92,10 @@ public class Snake implements KeyListener {
                 currentForbiddenKey2 = 37;
             }
         }
+    }
+
+    public String getCurrentDirection() {
+        return currentDirection;
     }
 
     @Override
