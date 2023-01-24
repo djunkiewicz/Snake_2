@@ -28,17 +28,17 @@ public class SnakeMap extends JLayeredPane {
 
         this.mapSize = size;
 
-        this.setPreferredSize(new Dimension(900,900));
+        this.setPreferredSize(new Dimension(720,720));
         this.setBackground(Color.BLUE);
         this.setLayout(null);
 
         JPanel map = new JPanel();
-        map.setBounds(0,0,900,900);
+        map.setBounds(0,0,720,720);
         map.setLayout(new GridLayout(mapSize,mapSize,0,0));
         this.add(map, Integer.valueOf(0));
 
         JPanel secondaryScreen = new JPanel();
-        secondaryScreen.setBounds(0,0,900,900);
+        secondaryScreen.setBounds(0,0,720,720);
         secondaryScreen.setLayout(new GridLayout(mapSize,mapSize));
         this.add(secondaryScreen, Integer.valueOf(1));
 

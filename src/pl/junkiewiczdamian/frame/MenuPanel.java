@@ -11,30 +11,30 @@ public class MenuPanel extends JPanel {
     private final JButton restartButton;
 
     public MenuPanel() {
-        this.setPreferredSize(new Dimension(300, 900));
+        this.setPreferredSize(new Dimension(240, 720));
         this.setBackground(new Color(222, 242, 255));
         GridBagLayout l = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
         this.setLayout(l);
 
         startButton = new JButton("START");
-        startButton.setPreferredSize(new Dimension(300, 150));
-        startButton.setMinimumSize(new Dimension(300, 150));
-        startButton.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 36));
+        startButton.setPreferredSize(new Dimension(240, 120));
+        startButton.setMinimumSize(new Dimension(240, 120));
+        startButton.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 30));
 
         pauseButton = new JButton("PAUSE");
-        pauseButton.setPreferredSize(new Dimension(300, 150));
-        pauseButton.setMinimumSize(new Dimension(300, 150));
-        pauseButton.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 36));
+        pauseButton.setPreferredSize(new Dimension(240, 120));
+        pauseButton.setMinimumSize(new Dimension(240, 120));
+        pauseButton.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 30));
 
         restartButton = new JButton("RESTART");
-        restartButton.setPreferredSize(new Dimension(300, 150));
-        restartButton.setMinimumSize(new Dimension(300, 150));
-        restartButton.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 36));
+        restartButton.setPreferredSize(new Dimension(240, 120));
+        restartButton.setMinimumSize(new Dimension(240, 120));
+        restartButton.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 30));
 
         JLabel gamePicture = new JLabel();
-        gamePicture.setPreferredSize(new Dimension(300, 350));
-        gamePicture.setMinimumSize(new Dimension(300, 350));
+        gamePicture.setPreferredSize(new Dimension(240, 280));
+        gamePicture.setMinimumSize(new Dimension(240, 280));
         gamePicture.setBackground(new Color(232, 255, 236));
         gamePicture.setOpaque(true);
         ImageIcon icon = new ImageIcon("icons\\gamePicture.png");
@@ -43,22 +43,22 @@ public class MenuPanel extends JPanel {
         gamePicture.setVerticalAlignment(SwingConstants.CENTER);
 
         JTextField scoreText = new JTextField();
-        scoreText.setPreferredSize(new Dimension(150, 100));
-        scoreText.setMinimumSize(new Dimension(150, 100));
+        scoreText.setPreferredSize(new Dimension(120, 80));
+        scoreText.setMinimumSize(new Dimension(120, 80));
         scoreText.setBackground(new Color(180, 231, 255));
         scoreText.setOpaque(true);
         scoreText.setText("Score:");
-        scoreText.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 56));
+        scoreText.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 40));
         scoreText.setHorizontalAlignment(SwingConstants.RIGHT);
         scoreText.setEditable(false);
 
         scorePoints = new JTextField();
         scorePoints.setBackground(new Color(180, 231, 255));
         scorePoints.setOpaque(true);
-        scorePoints.setPreferredSize(new Dimension(150, 100));
-        scorePoints.setMinimumSize(new Dimension(150, 150));
+        scorePoints.setPreferredSize(new Dimension(120, 80));
+        scorePoints.setMinimumSize(new Dimension(120, 80));
         scorePoints.setText("0");
-        scorePoints.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 56));
+        scorePoints.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 40));
         scorePoints.setHorizontalAlignment(SwingConstants.CENTER);
         scorePoints.setEditable(false);
 
