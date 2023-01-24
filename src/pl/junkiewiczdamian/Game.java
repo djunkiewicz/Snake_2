@@ -168,7 +168,6 @@ public class Game implements Runnable, ActionListener {
         }
         if (e.getSource() == myFrame.getMenuPanel().getRestartButton()){
             myFrame.getSnakeMap().clean();
-            myFrame.getMenuPanel().setPoints(points);
             snake.init();
             myFrame.updateSnakeMap(snake);
             myFrame.getSnakeMap().updateSnakeIcon(snake.getCurrentDirection());
@@ -177,6 +176,7 @@ public class Game implements Runnable, ActionListener {
             myFrame.getSnakeMap().setPopUpText(null);
             points = 0;
             speed = 200;
+            myFrame.getMenuPanel().setPoints(points);
             shouldStartCounting = true;
             runningGameCondition = true;
         }
