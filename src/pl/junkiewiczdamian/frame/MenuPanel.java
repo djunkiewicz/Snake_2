@@ -2,8 +2,6 @@ package pl.junkiewiczdamian.frame;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MenuPanel extends JPanel {
 
@@ -23,19 +21,16 @@ public class MenuPanel extends JPanel {
         startButton.setPreferredSize(new Dimension(300, 150));
         startButton.setMinimumSize(new Dimension(300, 150));
         startButton.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 36));
-        //startButton.addActionListener(this);
 
         pauseButton = new JButton("PAUSE");
         pauseButton.setPreferredSize(new Dimension(300, 150));
         pauseButton.setMinimumSize(new Dimension(300, 150));
         pauseButton.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 36));
-        //pauseButton.addActionListener(this);
 
         restartButton = new JButton("RESTART");
         restartButton.setPreferredSize(new Dimension(300, 150));
         restartButton.setMinimumSize(new Dimension(300, 150));
         restartButton.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 36));
-        //restartButton.addActionListener(this);
 
         JLabel gamePicture = new JLabel();
         gamePicture.setPreferredSize(new Dimension(300, 350));
@@ -98,11 +93,6 @@ public class MenuPanel extends JPanel {
     public void setPoints(int points){
         scorePoints.setText(String.valueOf(points));
     }
-
-    public int getPoints(){
-        return Integer.parseInt(scorePoints.getText());
-    }
-
     public JButton getStartButton() {
         return startButton;
     }

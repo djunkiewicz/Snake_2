@@ -1,14 +1,13 @@
 package pl.junkiewiczdamian.frame;
 
-import pl.junkiewiczdamian.Pizza;
 import pl.junkiewiczdamian.snake.Snake;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class MyFrame extends JFrame {
-    private SnakeMap snakeMap;
-    private MenuPanel menuPanel;
+    private final SnakeMap snakeMap;
+    private final MenuPanel menuPanel;
 
     public MyFrame(String title) {
         super(title);
@@ -35,12 +34,6 @@ public class MyFrame extends JFrame {
     }
     public void updateSnakeMap(Snake snake){
         snakeMap.update(snake);
-    }
-    public void updateSnakeMap(Pizza pizza){
-        snakeMap.update(pizza);
-    }
-    public void updateSnakeMap(Snake snake, Pizza pizza){
-        snakeMap.update(snake, pizza);
     }
     public int getSnakeMapSize(){
         return snakeMap.getMapSize();

@@ -1,6 +1,5 @@
 package pl.junkiewiczdamian;
 
-import pl.junkiewiczdamian.frame.FieldType;
 import pl.junkiewiczdamian.frame.MyFrame;
 import pl.junkiewiczdamian.snake.Snake;
 import pl.junkiewiczdamian.snake.SnakePart;
@@ -15,8 +14,8 @@ public class Game implements Runnable, ActionListener {
     private final Pizza pizza;
     private boolean runningGameCondition;
     private boolean shouldStartCounting;
-    int speed;
-    int points;
+    private int speed;
+    private int points;
 
     public Game() {
         snake = new Snake();
@@ -74,13 +73,13 @@ public class Game implements Runnable, ActionListener {
         }
     }
 
-    public void update() {
+    private void update() {
         snake.move(myFrame.getSnakeMap());
         snake.updateForbiddenMoves();
         checkPizza();
     }
 
-    public void checkPizza(){
+    private void checkPizza(){
         if (pizza.getX() == snake.getHead().getX() && pizza.getY() == snake.getHead().getY()){
             snake.expandBody();
             myFrame.getSnakeMap().update(snake);
@@ -109,10 +108,10 @@ public class Game implements Runnable, ActionListener {
         else speed = 65;
     }
 
-    public void repaint() {
+    private void repaint() {
         myFrame.repaintSnakeMap();
     }
-    public boolean checkCollision(){
+    private boolean checkCollision(){
         boolean collision = false;
         int x = snake.getHead().getX();
         int y = snake.getHead().getY();
@@ -129,7 +128,7 @@ public class Game implements Runnable, ActionListener {
         return collision;
     }
 
-    public void startSequence(){
+    private void startSequence(){
         if (!checkCollision()){
             runningGameCondition = true;
         }
@@ -169,8 +168,6 @@ public class Game implements Runnable, ActionListener {
         }
         if (e.getSource() == myFrame.getMenuPanel().getRestartButton()){
             myFrame.getSnakeMap().clean();
-            points = 0;
-            speed = 200;
             myFrame.getMenuPanel().setPoints(points);
             snake.init();
             myFrame.updateSnakeMap(snake);
@@ -178,6 +175,8 @@ public class Game implements Runnable, ActionListener {
             pizza.generateNewPosition(myFrame.getSnakeMap());
             repaint();
             myFrame.getSnakeMap().setPopUpText(null);
+            points = 0;
+            speed = 200;
             shouldStartCounting = true;
             runningGameCondition = true;
         }

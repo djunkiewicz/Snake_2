@@ -2,15 +2,13 @@ package pl.junkiewiczdamian;
 
 import pl.junkiewiczdamian.frame.FieldType;
 import pl.junkiewiczdamian.frame.SnakeMap;
-import pl.junkiewiczdamian.snake.Snake;
-import pl.junkiewiczdamian.snake.SnakePart;
 
 import java.util.Random;
 
 public class Pizza {
     private int x;
     private int y;
-    private Random rand;
+    private final Random rand;
 
     public Pizza(){
         rand = new Random();
@@ -42,13 +40,5 @@ public class Pizza {
 
     public int getY() {
         return y;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 }

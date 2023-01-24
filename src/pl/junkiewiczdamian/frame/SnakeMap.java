@@ -1,6 +1,5 @@
 package pl.junkiewiczdamian.frame;
 
-import pl.junkiewiczdamian.Pizza;
 import pl.junkiewiczdamian.snake.Snake;
 import pl.junkiewiczdamian.snake.SnakePart;
 
@@ -107,8 +106,6 @@ public class SnakeMap extends JLayeredPane {
                         case SNAKE_HEAD -> {
                             fields[i][j].setBackground(backgroundColor);
                             fields[i][j].setIcon(currentSnakeHeadIcon);
-                            //fields[i][j].setHorizontalAlignment(SwingConstants.CENTER);
-                            //fields[i][j].setVerticalAlignment(SwingConstants.CENTER);
                         }
                         case SNAKE_BODY -> {
                             fields[i][j].setBackground(backgroundColor);
@@ -123,12 +120,6 @@ public class SnakeMap extends JLayeredPane {
             }
         }
 
-    }
-    public void update(Pizza pizza){
-        int x,y;
-        x = pizza.getX();
-        y = pizza.getY();
-        fields[y][x].setFieldType(FieldType.PIZZA);
     }
 
     public void updateSnakeIcon(String currentSnakeDirection){
@@ -150,22 +141,6 @@ public class SnakeMap extends JLayeredPane {
         x = snake.getHead().getX();
         y = snake.getHead().getY();
         fields[y][x].setFieldType(FieldType.SNAKE_HEAD);
-    }
-
-    public void update(Snake snake, Pizza pizza){
-        int x,y;
-        for (SnakePart temp: snake.getBodyParts()) {
-            x = temp.getX();
-            y = temp.getY();
-            fields[y][x].setFieldType(FieldType.SNAKE_BODY);
-        }
-        x = snake.getHead().getX();
-        y = snake.getHead().getY();
-        fields[y][x].setFieldType(FieldType.SNAKE_HEAD);
-
-        x = pizza.getX();
-        y = pizza.getY();
-        fields[y][x].setFieldType(FieldType.PIZZA);
     }
 
     public int getMapSize() {
