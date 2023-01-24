@@ -4,6 +4,7 @@
 .mtj.tmp/
 *.class
 *.jar
+*.exe
 *.war
 *.ear
 *.nar
